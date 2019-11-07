@@ -36,7 +36,7 @@ func (s *Slider) handleInput(input *userInput) {
 }
 
 func (s *Slider) draw(screen *ebiten.Image) {
-	drawSquare(screen, s.bounds)
+	drawBorder(screen, s.bounds)
 	lineX := float64(s.bounds.Min.X + 3 + s.value*(s.bounds.Dx()-6)/100)
 	lineY := float64(s.bounds.Min.Y + 3)
 	lineY2 := float64(s.bounds.Max.Y - 3)

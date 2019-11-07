@@ -38,10 +38,9 @@ func (b *Button) draw(img *ebiten.Image) {
 		fh := float64(b.bounds.Dy())
 		ebitenutil.DrawRect(img, fx, fy, fw, fh, darkBgColor)
 	}
-	drawSquare(img, b.bounds)
+	drawBorder(img, b.bounds)
 	center := b.bounds.Min.Add(b.bounds.Size().Div(2))
 	textX := center.X - len(b.label)*3
 	textY := center.Y - 9
 	ebitenutil.DebugPrintAt(img, b.label, textX, textY)
 }
-

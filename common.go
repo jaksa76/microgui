@@ -54,7 +54,7 @@ type buttonState struct {
 	released bool
 }
 
-func drawSquare(img *ebiten.Image, bounds image.Rectangle) {
+func drawBorder(img *ebiten.Image, bounds image.Rectangle) {
 	if !bounds.Overlaps(img.Bounds()) {
 		return
 	}
