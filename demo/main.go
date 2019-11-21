@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
+	"time"
 
 	"github.com/jaksa76/microgui"
 )
@@ -26,6 +28,17 @@ func main() {
 	microgui.Add(microgui.NewSlider(10, 280, 160, 20, sliderHandler))
 
 	microgui.Add(microgui.NewMenu(160, 40, 120, 100, menuHandler, "A", "B", "C"))
+
+	result := microgui.NewLabel("", 400, 250, 120, 20)
+	microgui.Add(result)
+	microgui.Add(microgui.NewButton("Long Running Task", 260, 250, 120, 20, func() {
+		for i := 0; i < 100; i++ {
+			time.Sleep(100 * time.Millisecond)
+			result.SetLabel(fmt.Sprintf("progress: %d%%", i))
+		}
+
+		result.SetLabel(fmt.Sprintf("result: %d", rand.Int()))
+	}))
 
 	microgui.OpenWindow(640, 480, "Micro GUI Demo")
 }

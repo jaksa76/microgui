@@ -26,3 +26,8 @@ func (l *Label) draw(img *ebiten.Image) {
 	textY := center.Y - 9
 	ebitenutil.DebugPrintAt(img, l.label, textX, textY)
 }
+
+// SetLable asynchronously sets the label
+func (l *Label) SetLabel(s string) {
+	updates <- func() { l.label = s }
+}
