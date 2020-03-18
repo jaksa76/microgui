@@ -42,6 +42,10 @@ func (t *TextField) handleInput(input *userInput) {
 					t.contentOffset--
 				}
 			}
+		} else if repeatingKeyPressed(ebiten.KeyDelete) && t.content != "" {
+			if t.cursorPosition < len(t.content) {
+				t.content = t.content[:t.cursorPosition] + t.content[t.cursorPosition+1:]
+			}
 		} else if repeatingKeyPressed(ebiten.KeyLeft) {
 			if t.cursorPosition > 0 {
 				t.cursorPosition--
