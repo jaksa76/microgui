@@ -96,6 +96,17 @@ func (t *TextField) draw(img *ebiten.Image) {
 	ebitenutil.DrawLine(img, x1, y2-1, x2, y2-1, borderLightColor) // bottom
 	ebitenutil.DrawLine(img, x1+1, y1, x1+1, y2, boderDarkColor)   // left
 	ebitenutil.DrawLine(img, x2, y1, x2, y2, borderLightColor)     // right
+
+	if t.contentOffset > 0 {
+		ebitenutil.DrawLine(img, x1+2, y2-3, x1+3, y2-3, fgColor)
+		ebitenutil.DrawLine(img, x1+4, y2-3, x1+5, y2-3, fgColor)
+		ebitenutil.DrawLine(img, x1+6, y2-3, x1+7, y2-3, fgColor)
+	}
+	if t.contentOffset < len(t.content)-t.widthInChars() {
+		ebitenutil.DrawLine(img, x2-2, y2-3, x2-3, y2-3, fgColor)
+		ebitenutil.DrawLine(img, x2-4, y2-3, x2-5, y2-3, fgColor)
+		ebitenutil.DrawLine(img, x2-6, y2-3, x2-7, y2-3, fgColor)
+	}
 }
 
 func (t *TextField) widthInChars() int {

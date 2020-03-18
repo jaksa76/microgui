@@ -19,6 +19,7 @@ const (
 var (
 	borderLightColor color.Color
 	boderDarkColor   color.Color
+	fgColor          color.Color
 	bgColor          color.Color
 	darkBgColor      color.Color
 	widgets          []Widget
@@ -28,6 +29,7 @@ var (
 )
 
 func init() {
+	fgColor = color.RGBA{255, 255, 255, 0xff}
 	bgColor = color.RGBA{30, 30, 30, 0xff}
 	darkBgColor = color.RGBA{0, 0, 0, 0xff}
 	borderLightColor = color.RGBA{0xff, 0xff, 0xff, 50}
