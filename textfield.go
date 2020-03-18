@@ -61,10 +61,12 @@ func (t *TextField) handleInput(input *userInput) {
 		}
 
 		// scroll to cursor
-		if t.cursorPosition < t.contentOffset {
+		if t.cursorPosition < t.contentOffset { // cursor is left of visible text
 			t.contentOffset = t.cursorPosition
-		} else if t.cursorPosition > t.contentOffset+t.widthInChars() {
+		} else if t.cursorPosition > t.contentOffset+t.widthInChars() { // cursor is on right of visible text
 			t.contentOffset = t.cursorPosition - t.widthInChars()
+		} else if t.contentOffset > len(t.content)-t.widthInChars() { // cursor is inside visible text
+			t.contentOffset = max(0, len(t.content)-t.widthInChars())
 		}
 	}
 }
@@ -78,7 +80,7 @@ func (t *TextField) draw(img *ebiten.Image) {
 	col := color.RGBA{20, 20, 20, 0xff}
 	ebitenutil.DrawRect(img, float64(b.Min.X), float64(b.Min.Y), float64(b.Dx()), float64(b.Dy()), col)
 
-	ebitenutil.DebugPrintAt(img, truncToPixels(t.content[t.contentOffset:], b.Dx()), b.Min.X+3, b.Min.Y+b.Dy()/2-8)
+	ebitenutil.DebugPrintAt(img, t.visibleText(), b.Min.X+3, b.Min.Y+b.Dy()/2-8)
 
 	if t.hasFocus {
 		cursorX := float64(b.Min.X + 5 + (t.cursorPosition-t.contentOffset)*6)
@@ -100,11 +102,18 @@ func (t *TextField) widthInChars() int {
 	return t.bounds.Dx()/6 - 1
 }
 
-func truncToPixels(s string, pixels int) string {
-	if len(s) < pixels/6-1 {
-		return s
+func (t *TextField) visibleText() string {
+	if len(t.content)-t.contentOffset < t.widthInChars() {
+		return t.content[t.contentOffset:]
 	}
-	return s[:pixels/6-1]
+	return t.content[t.contentOffset : t.contentOffset+t.widthInChars()]
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func (t *TextField) clicked(x, y int)    {}
