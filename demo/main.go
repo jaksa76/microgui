@@ -40,7 +40,7 @@ func main() {
 		result.SetLabel(fmt.Sprintf("result: %d", rand.Int()))
 	}))
 
-	textBox := microgui.NewTextBox("This is some long text that will be displayed on multiple lines", 260, 280, 100, 100)
+	textBox := microgui.NewTextBox("This is some long text, that will be displayed on multiple lines.", 260, 280, 100, 100)
 	microgui.Add(textBox)
 	microgui.Add(microgui.NewLabel("width", 260, 240, 160, 8))
 	microgui.Add(microgui.NewSlider(320, 240, 160, 12, func(n int) {
