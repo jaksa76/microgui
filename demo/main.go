@@ -29,15 +29,26 @@ func main() {
 
 	microgui.Add(microgui.NewMenu(160, 40, 120, 100, menuHandler, "A", "B", "C"))
 
-	result := microgui.NewLabel("", 400, 250, 120, 20)
+	result := microgui.NewLabel("", 400, 200, 120, 20)
 	microgui.Add(result)
-	microgui.Add(microgui.NewButton("Long Running Task", 260, 250, 120, 20, func() {
+	microgui.Add(microgui.NewButton("Long Running Task", 260, 200, 120, 20, func() {
 		for i := 0; i < 100; i++ {
 			time.Sleep(100 * time.Millisecond)
 			result.SetLabel(fmt.Sprintf("progress: %d%%", i))
 		}
 
 		result.SetLabel(fmt.Sprintf("result: %d", rand.Int()))
+	}))
+
+	textBox := microgui.NewTextBox("This is some long text that will be displayed on multiple lines", 260, 280, 100, 100)
+	microgui.Add(textBox)
+	microgui.Add(microgui.NewLabel("width", 260, 240, 160, 8))
+	microgui.Add(microgui.NewSlider(320, 240, 160, 12, func(n int) {
+		textBox.SetWidth(n + 1)
+	}))
+	microgui.Add(microgui.NewLabel("height", 260, 260, 160, 8))
+	microgui.Add(microgui.NewSlider(320, 260, 160, 12, func(n int) {
+		textBox.SetHeight(n + 1)
 	}))
 
 	microgui.OpenWindow(640, 480, "Micro GUI Demo")

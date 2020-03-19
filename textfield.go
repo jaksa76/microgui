@@ -97,6 +97,7 @@ func (t *TextField) draw(img *ebiten.Image) {
 	ebitenutil.DrawLine(img, x1+1, y1, x1+1, y2, boderDarkColor)   // left
 	ebitenutil.DrawLine(img, x2, y1, x2, y2, borderLightColor)     // right
 
+	// ellipses for text out of bounds
 	if t.contentOffset > 0 {
 		ebitenutil.DrawLine(img, x1+2, y2-3, x1+3, y2-3, fgColor)
 		ebitenutil.DrawLine(img, x1+4, y2-3, x1+5, y2-3, fgColor)
